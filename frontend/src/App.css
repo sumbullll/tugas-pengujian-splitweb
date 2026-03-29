@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc; /* slate-50 */
+}
+
+/* ==========================================
+   VANILLA CSS ANIMATIONS (100% AMAN)
+========================================== */
+
+/* 1. Animasi Titik Emas Mengalir */
+@keyframes titik-jalan {
+  from { background-position: 0px 0px; }
+  to { background-position: 24px 24px; }
+}
+.animasi-titik {
+  animation: titik-jalan 15s linear infinite;
+}
+
+/* 2. Animasi Muncul Halus */
+@keyframes smooth-appear {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animasi-muncul {
+  animation: smooth-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3. Animasi Background Gradient */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animasi-gradien {
+  background-size: 200% 200%;
+  animation: gradient-shift 12s ease infinite;
+}

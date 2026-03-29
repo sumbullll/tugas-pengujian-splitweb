@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8fafc; /* slate-50 */
+}
+
+/* ============================================================
+   VANILLA CSS ANIMATIONS (100% AMAN & PASTI JALAN)
+============================================================ */
+
+/* 1. KEYFRAMES: BINTANG KATASTRONOT (Petualangan)
+   Logic: Durasi 12s, linear, infinite.
+   0%-15%   : Diam & Putar di wadah kotak.
+   15%-25%  : Terbang keluar menuju kata "Split".
+   25%-35%  : Lompat & Mendarat (Squash) di atas "Split".
+   35%-45%  : Terbang menuju "Web3".
+   45%-55%  : Lompat & Mendarat (Squash) di atas "Web3".
+   55%-70%  : Terbang kembali menuju kotak.
+   70%-80%  : Masuk kotak & Putar balik.
+   80%-100% : Diam & Putar lagi di wadah.
+*/
+@keyframes star-katastronot {
+    /* 0%-15%: Spin inside box */
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    15% { transform: translate(0, 0) rotate(360deg) scale(1); }
+
+    /* 15%-25%: Exit box towards "Split" text */
+    20% { transform: translate(30px, -20px) rotate(380deg) scale(1.1); }
+    25% { transform: translate(50px, -20px) rotate(400deg) scale(1.1); }
+
+    /* 25%-35%: Bounce 1 (on "Split") */
+    30% { transform: translate(65px, -3px) rotate(420deg) scaleX(1.1) scaleY(0.9); } /* squash land */
+    35% { transform: translate(75px, -25px) rotate(440deg) scale(1); } /* up */
+
+    /* 35%-45%: Move over to "Web3" */
+    40% { transform: translate(100px, -25px) rotate(460deg) scale(1); }
+
+    /* 45%-55%: Bounce 2 (on "Web3") */
+    50% { transform: translate(120px, -3px) rotate(480deg) scaleX(1.1) scaleY(0.9); } /* squash land */
+    55% { transform: translate(135px, -25px) rotate(500deg) scale(1); } /* up */
+
+    /* 55%-70%: Return path */
+    60% { transform: translate(110px, -25px) rotate(550deg) scale(1.1); }
+    65% { transform: translate(60px, -20px) rotate(600deg) scale(1.1); }
+
+    /* 70%-80%: Enter box */
+    75% { transform: translate(15px, -10px) rotate(680deg) scale(1); }
+    80% { transform: translate(0, 0) rotate(720deg) scale(1); }
+
+    /* 80%-100%: Spin again inside */
+    100% { transform: translate(0, 0) rotate(1080deg) scale(1); }
+}
+
+.animasi-bintang-katastronot {
+    animation: star-katastronot 12s linear infinite;
+    transform-origin: center;
+}
+
+/* 2. Animasi Standard Lainnya (Jika ada) */
+@keyframes smooth-appear {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animasi-muncul {
+  animation: smooth-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+/* ============================================================
+   ANIMASI LOGO SPLITWEB3 (FAST SPIN + LONG PAUSE)
+============================================================ */
+@keyframes spin-with-pause {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(360deg); } /* Berputar sangat cepat di awal */
+  100% { transform: rotate(360deg); } /* Diam selama sisa waktu (sekitar 4 detik) */
+}
+
+.animate-spin-pause {
+  /* Total durasi 5 detik (1 detik putar, 4 detik diam), ease-in-out agar putarannya mulus */
+  animation: spin-with-pause 5s ease-in-out infinite;
+}
