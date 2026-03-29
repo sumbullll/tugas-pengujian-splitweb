@@ -1,6 +1,6 @@
 {
   "name": "splitweb3-backend",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Backend API untuk SplitWeb3",
   "main": "server.js",
   "scripts": {
