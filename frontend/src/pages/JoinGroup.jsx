@@ -22,7 +22,7 @@ const JoinGroup = () => {
           return;
         }
 
-        const response = await axios.get(`http://127.0.0.1:5000/api/groups/${id}`, {
+        const response = await axios.get(`https://splitweb3-backend.vercel.app/api/groups/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setGroup(response.data.group);
@@ -40,7 +40,7 @@ const JoinGroup = () => {
     setJoining(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`http://127.0.0.1:5000/api/groups/${id}/join`, {}, {
+      await axios.post(`https://splitweb3-backend.vercel.app/api/groups/${id}/join`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Berhasil bergabung dengan grup!');

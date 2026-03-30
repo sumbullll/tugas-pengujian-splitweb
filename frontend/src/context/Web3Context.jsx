@@ -48,7 +48,7 @@ export const Web3Provider = ({ children }) => {
 
         const token = localStorage.getItem('token');
         if (token) {
-          await axios.put('http://127.0.0.1:5000/api/auth/update-wallet', 
+          await axios.put('https://splitweb3-backend.vercel.app/api/auth/update-wallet', 
             { wallet_address: walletAddress }, 
             { headers: { Authorization: `Bearer ${token}` } }
           );

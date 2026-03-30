@@ -53,7 +53,7 @@ const GroupDetail = () => {
     setLoadingDetail(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://127.0.0.1:5000/api/bills/${billId}`, {
+      const response = await axios.get(`https://splitweb3-backend.vercel.app/api/bills/${billId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setSelectedBillDetail(response.data);
@@ -114,11 +114,11 @@ const GroupDetail = () => {
       try {
         const token = localStorage.getItem('token');
         if (type === 'delete_group') {
-          await axios.delete(`http://127.0.0.1:5000/api/groups/${data.groupId}`, {
+          await axios.delete(`https://splitweb3-backend.vercel.app/api/groups/${data.groupId}`, {
             headers: { Authorization: `Bearer ${token}` }
           });
         } else {
-          await axios.delete(`http://127.0.0.1:5000/api/groups/${data.groupId}/leave`, {
+          await axios.delete(`https://splitweb3-backend.vercel.app/api/groups/${data.groupId}/leave`, {
             headers: { Authorization: `Bearer ${token}` }
           });
         }
@@ -141,7 +141,7 @@ const GroupDetail = () => {
             formData.append('bukti_transfer', transferProofFile);
         }
 
-        await axios.post(`http://127.0.0.1:5000/api/bills/${splitId}/request-confirm`, formData, {
+        await axios.post(`https://splitweb3-backend.vercel.app/api/bills/${splitId}/request-confirm`, formData, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -156,7 +156,7 @@ const GroupDetail = () => {
     else if (type === 'approve') {
       try {
         const token = localStorage.getItem('token');
-        await axios.post(`http://127.0.0.1:5000/api/bills/${splitId}/approve`, {}, {
+        await axios.post(`https://splitweb3-backend.vercel.app/api/bills/${splitId}/approve`, {}, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -190,7 +190,7 @@ const GroupDetail = () => {
     if (result.success) {
       try {
         const token = localStorage.getItem('token');
-        await axios.put(`http://127.0.0.1:5000/api/bills/split/${split.id}/pay-onchain`, {
+        await axios.put(`https://splitweb3-backend.vercel.app/api/bills/split/${split.id}/pay-onchain`, {
           tx_hash: result.hash
         }, {
           headers: { Authorization: `Bearer ${token}` }
@@ -209,7 +209,7 @@ const GroupDetail = () => {
   const fetchGroupDetail = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://127.0.0.1:5000/api/groups/${id}`, {
+      const response = await axios.get(`https://splitweb3-backend.vercel.app/api/groups/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGroupData(response.data.group);
@@ -224,7 +224,7 @@ const GroupDetail = () => {
   const fetchBills = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://127.0.0.1:5000/api/bills/group/${id}`, {
+      const response = await axios.get(`https://splitweb3-backend.vercel.app/api/bills/group/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBills(response.data);
@@ -274,7 +274,7 @@ const GroupDetail = () => {
           formData.append('struk_foto', receiptFile);
       }
 
-      await axios.post('http://127.0.0.1:5000/api/bills', formData, {
+      await axios.post('https://splitweb3-backend.vercel.app/api/bills', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -573,10 +573,10 @@ const GroupDetail = () => {
                             <ImageIcon size={12}/> Foto Struk
                         </div>
                         <img 
-                            src={`http://127.0.0.1:5000/uploads/${selectedBillDetail.bill.struk_foto}`} 
+                            src={`https://splitweb3-backend.vercel.app/uploads/${selectedBillDetail.bill.struk_foto}`} 
                             alt="Struk Tagihan" 
                             className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500"
-                            onClick={() => window.open(`http://127.0.0.1:5000/uploads/${selectedBillDetail.bill.struk_foto}`, '_blank')}
+                            onClick={() => window.open(`https://splitweb3-backend.vercel.app/uploads/${selectedBillDetail.bill.struk_foto}`, '_blank')}
                             style={{ cursor: 'zoom-in' }}
                         />
                     </div>
@@ -651,7 +651,7 @@ const GroupDetail = () => {
                                   <ImageIcon size={12}/> Bukti Transfer Dikirim
                               </span>
                               <a 
-                                  href={`http://127.0.0.1:5000/uploads/${split.bukti_transfer}`} 
+                                  href={`https://splitweb3-backend.vercel.app/uploads/${split.bukti_transfer}`} 
                                   target="_blank" rel="noopener noreferrer"
                                   className="text-[10px] font-bold text-[#C9A84C] hover:text-[#8B6914] bg-[#FBF5E6] px-2 py-1 rounded transition-colors flex items-center gap-1"
                               >
@@ -696,10 +696,10 @@ const GroupDetail = () => {
                             Bukti Transfer dari Temanmu
                         </div>
                         <img 
-                            src={`http://127.0.0.1:5000/uploads/${confirmDialog.image}`} 
+                            src={`https://splitweb3-backend.vercel.app/uploads/${confirmDialog.image}`} 
                             alt="Bukti Transfer" 
                             className="w-full max-h-48 object-contain bg-gray-50"
-                            onClick={() => window.open(`http://127.0.0.1:5000/uploads/${confirmDialog.image}`, '_blank')}
+                            onClick={() => window.open(`https://splitweb3-backend.vercel.app/uploads/${confirmDialog.image}`, '_blank')}
                             style={{ cursor: 'zoom-in' }}
                         />
                     </div>

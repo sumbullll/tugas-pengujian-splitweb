@@ -17,7 +17,7 @@ const Notifications = () => {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://127.0.0.1:5000/api/notifications', {
+      const response = await axios.get('https://splitweb3-backend.vercel.app/api/notifications', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNotifications(response.data);
@@ -31,7 +31,7 @@ const Notifications = () => {
   const markAsRead = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`http://127.0.0.1:5000/api/notifications/${id}/read`, {}, {
+      await axios.put(`https://splitweb3-backend.vercel.app/api/notifications/${id}/read`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -47,7 +47,7 @@ const Notifications = () => {
   const executeClearAll = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete('http://127.0.0.1:5000/api/notifications', {
+      await axios.delete('https://splitweb3-backend.vercel.app/api/notifications', {
         headers: { Authorization: `Bearer ${token}` }
       });
       

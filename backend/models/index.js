@@ -1,3 +1,4 @@
+require('mysql2');
 'use strict';
 
 const Sequelize = require('sequelize');

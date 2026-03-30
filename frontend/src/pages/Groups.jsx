@@ -23,7 +23,7 @@ const Groups = () => {
   const fetchGroups = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://127.0.0.1:5000/api/groups', {
+      const response = await axios.get('https://splitweb3-backend.vercel.app/api/groups', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setGroups(response.data);
@@ -45,7 +45,7 @@ const Groups = () => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://127.0.0.1:5000/api/groups', newGroup, {
+      await axios.post('https://splitweb3-backend.vercel.app/api/groups', newGroup, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNewGroup({ name: '', description: '' });

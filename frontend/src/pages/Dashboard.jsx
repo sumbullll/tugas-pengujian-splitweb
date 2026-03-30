@@ -45,12 +45,12 @@ const Dashboard = () => {
       const headers = { Authorization: `Bearer ${token}` };
 
       // 1. Ambil Data Grup
-      const groupRes = await axios.get('http://127.0.0.1:5000/api/groups', { headers });
+      const groupRes = await axios.get('https://splitweb3-backend.vercel.app/api/groups', { headers });
       setGroups(groupRes.data);
 
       // 2. Ambil Data Summary (Hutang, Piutang, Tx)
       try {
-        const summaryRes = await axios.get('http://127.0.0.1:5000/api/dashboard/summary', { headers });
+        const summaryRes = await axios.get('https://splitweb3-backend.vercel.app/api/dashboard/summary', { headers });
         setSummary({
           totalHutang: summaryRes.data.totalHutang || 0,
           totalPiutang: summaryRes.data.totalPiutang || 0,
@@ -86,7 +86,7 @@ const Dashboard = () => {
     setIsSubmitting(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://127.0.0.1:5000/api/groups', newGroup, {
+      await axios.post('https://splitweb3-backend.vercel.app/api/groups', newGroup, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

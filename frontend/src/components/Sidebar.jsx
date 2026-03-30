@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await axios.get('http://127.0.0.1:5000/api/notifications', {
+      const response = await axios.get('https://splitweb3-backend.vercel.app/api/notifications', {
         headers: { Authorization: `Bearer ${token}` }
       });
 

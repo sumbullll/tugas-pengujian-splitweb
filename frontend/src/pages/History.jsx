@@ -21,7 +21,7 @@ const History = () => {
   const fetchHistory = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://127.0.0.1:5000/api/transactions/history', {
+      const response = await axios.get('https://splitweb3-backend.vercel.app/api/transactions/history', {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -42,7 +42,7 @@ const History = () => {
   const executeClearAll = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete('http://127.0.0.1:5000/api/transactions/history', {
+      await axios.delete('https://splitweb3-backend.vercel.app/api/transactions/history', {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -137,7 +137,7 @@ const History = () => {
                           )}
 
                           {tx.type === 'cash' && tx.bukti_foto && (
-                              <a href={`http://127.0.0.1:5000/uploads/${tx.bukti_foto}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-lg hover:bg-blue-100 transition-colors" title="Lihat Bukti Foto">
+                              <a href={`https://splitweb3-backend.vercel.app/uploads/${tx.bukti_foto}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-lg hover:bg-blue-100 transition-colors" title="Lihat Bukti Foto">
                                   <ImageIcon size={12} /> Bukti
                               </a>
                           )}
