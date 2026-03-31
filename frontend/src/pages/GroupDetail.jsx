@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { QRCodeCanvas } from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react'; // Pastikan import QRCodeSVG benar
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import PageTransition from '../components/PageTransition';
 import { 
-  ArrowLeft, Users, QrCode, X, Receipt, Wallet, Plus, 
+  ArrowLeft, Users, UserPlus, X, Receipt, Wallet, Plus, 
   Check, CheckCircle, ExternalLink, Clock, CheckSquare, 
   Banknote, Coins, AlertCircle, Image as ImageIcon, UploadCloud,
   Trash2, LogOut
@@ -87,7 +87,6 @@ const GroupDetail = () => {
     });
   };
 
-  // 👉 FUNGSI BARU: Buka pop-up kustom untuk hapus/keluar grup
   const handleLeaveOrDelete = () => {
     const isAdmin = groupData.admin_id === currentUserId;
     
@@ -109,7 +108,6 @@ const GroupDetail = () => {
     
     setConfirmDialog(prev => ({ ...prev, isOpen: false })); 
 
-    // 👉 LOGIKA EKSEKUSI HAPUS/KELUAR GRUP
     if (type === 'delete_group' || type === 'leave_group') {
       try {
         const token = localStorage.getItem('token');
@@ -127,7 +125,7 @@ const GroupDetail = () => {
         console.error("Gagal keluar/hapus grup:", error);
         alert(error.response?.data?.message || "Terjadi kesalahan pada server.");
       }
-      return; // Stop eksekusi untuk fungsi ini saja
+      return; 
     }
 
     const { splitId, billId } = data;
@@ -292,7 +290,8 @@ const GroupDetail = () => {
 
   if (loading) return <div className="h-screen flex items-center justify-center bg-[#FAFAF9] text-[#C9A84C] font-bold">Memuat data grup...</div>;
 
-  const inviteLink = `http://localhost:5173/join/${groupData.id}`;
+  // 👉 PERBAIKAN LINK QR CODE AGAR DINAMIS
+  const inviteLink = `${window.location.origin}/join/${groupData.id}`;
 
   return (
     <div className="flex h-screen bg-[#FAFAF9] overflow-hidden font-sans relative">
@@ -329,7 +328,7 @@ const GroupDetail = () => {
                   onClick={() => setShowQR(true)}
                   className="flex items-center justify-center gap-2 px-5 py-2.5 bg-[#1A1916] text-white rounded-xl font-bold text-sm hover:bg-[#C9A84C] transition-colors shadow-lg"
                 >
-                  <QrCode size={18} /> Undang Teman
+                  <UserPlus size={18} /> Undang Teman
                 </button>
               </div>
             </div>
@@ -438,7 +437,8 @@ const GroupDetail = () => {
             <h2 className="text-xl font-black text-[#1A1916] mb-2">Scan untuk Bergabung!</h2>
             <p className="text-sm text-[#A09E97] mb-6">Suruh temanmu scan QR ini untuk masuk ke grup <b>{groupData.name}</b></p>
             <div className="flex justify-center p-4 bg-white border-2 border-[#E8E6E0] rounded-2xl mb-6 shadow-sm">
-              <QRCodeCanvas value={inviteLink} size={200} fgColor="#1A1916" />
+              {/* PASTIKAN MENGGUNAKAN QRCodeSVG */}
+              <QRCodeSVG value={inviteLink} size={200} fgColor="#1A1916" />
             </div>
             <button onClick={() => { navigator.clipboard.writeText(inviteLink); alert("Link disalin!"); }} className="w-full py-3 rounded-xl font-bold text-sm text-[#1A1916] bg-[#FAFAF9] border border-[#E8E6E0] hover:bg-gray-100 transition-colors">
               Copy Link Invitation
