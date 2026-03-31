@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { QRCodeSVG } from 'qrcode.react'; // Pastikan import QRCodeSVG benar
+import { QRCodeSVG } from 'qrcode.react'; 
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 import PageTransition from '../components/PageTransition';
@@ -437,7 +437,6 @@ const GroupDetail = () => {
             <h2 className="text-xl font-black text-[#1A1916] mb-2">Scan untuk Bergabung!</h2>
             <p className="text-sm text-[#A09E97] mb-6">Suruh temanmu scan QR ini untuk masuk ke grup <b>{groupData.name}</b></p>
             <div className="flex justify-center p-4 bg-white border-2 border-[#E8E6E0] rounded-2xl mb-6 shadow-sm">
-              {/* PASTIKAN MENGGUNAKAN QRCodeSVG */}
               <QRCodeSVG value={inviteLink} size={200} fgColor="#1A1916" />
             </div>
             <button onClick={() => { navigator.clipboard.writeText(inviteLink); alert("Link disalin!"); }} className="w-full py-3 rounded-xl font-bold text-sm text-[#1A1916] bg-[#FAFAF9] border border-[#E8E6E0] hover:bg-gray-100 transition-colors">
@@ -567,16 +566,17 @@ const GroupDetail = () => {
                   <p className="text-sm text-[#A09E97] mt-1">Ditalangi oleh <b className="text-[#1A1916]">{selectedBillDetail.bill.payer_name}</b></p>
                 </div>
                 
+                {/* 👉 URL FOTO STRUK CLOUDINARY */}
                 {selectedBillDetail.bill.struk_foto && (
                     <div className="mb-6 rounded-2xl overflow-hidden border border-[#E8E6E0] shadow-sm relative group">
                         <div className="absolute top-2 left-2 bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-lg flex items-center gap-1 z-10">
                             <ImageIcon size={12}/> Foto Struk
                         </div>
                         <img 
-                            src={`https://splitweb3-backend.vercel.app/uploads/${selectedBillDetail.bill.struk_foto}`} 
+                            src={selectedBillDetail.bill.struk_foto} 
                             alt="Struk Tagihan" 
                             className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500"
-                            onClick={() => window.open(`https://splitweb3-backend.vercel.app/uploads/${selectedBillDetail.bill.struk_foto}`, '_blank')}
+                            onClick={() => window.open(selectedBillDetail.bill.struk_foto, '_blank')}
                             style={{ cursor: 'zoom-in' }}
                         />
                     </div>
@@ -644,14 +644,14 @@ const GroupDetail = () => {
                           </div>
                       </div>
 
-                      {/* 👉 TAMPILKAN BUKTI TRANSFER DI RINCIAN JIKA ADA */}
+                      {/* 👉 TAMPILKAN BUKTI TRANSFER DI RINCIAN JIKA ADA (CLOUDINARY URL) */}
                       {split.bukti_transfer && (
                           <div className="mt-1 pt-3 border-t border-[#E8E6E0] flex justify-between items-center bg-gray-50/50 -mx-3 -mb-3 p-3 rounded-b-xl">
                               <span className="text-[10px] font-bold text-[#A09E97] uppercase flex items-center gap-1">
                                   <ImageIcon size={12}/> Bukti Transfer Dikirim
                               </span>
                               <a 
-                                  href={`https://splitweb3-backend.vercel.app/uploads/${split.bukti_transfer}`} 
+                                  href={split.bukti_transfer} 
                                   target="_blank" rel="noopener noreferrer"
                                   className="text-[10px] font-bold text-[#C9A84C] hover:text-[#8B6914] bg-[#FBF5E6] px-2 py-1 rounded transition-colors flex items-center gap-1"
                               >
@@ -688,7 +688,7 @@ const GroupDetail = () => {
             <h2 className="text-xl font-black text-[#1A1916] mb-2">{confirmDialog.title}</h2>
             <p className="text-sm text-[#A09E97] mb-6 leading-relaxed">{confirmDialog.message}</p>
             
-            {/* TAMPILAN PREVIEW FOTO ATAU PESAN FALLBACK UNTUK ADMIN */}
+            {/* TAMPILAN PREVIEW FOTO ATAU PESAN FALLBACK UNTUK ADMIN (CLOUDINARY URL) */}
             {confirmDialog.type === 'approve' && (
                 confirmDialog.image ? (
                     <div className="mb-6 rounded-xl overflow-hidden border border-[#E8E6E0] shadow-sm">
@@ -696,10 +696,10 @@ const GroupDetail = () => {
                             Bukti Transfer dari Temanmu
                         </div>
                         <img 
-                            src={`https://splitweb3-backend.vercel.app/uploads/${confirmDialog.image}`} 
+                            src={confirmDialog.image} 
                             alt="Bukti Transfer" 
                             className="w-full max-h-48 object-contain bg-gray-50"
-                            onClick={() => window.open(`https://splitweb3-backend.vercel.app/uploads/${confirmDialog.image}`, '_blank')}
+                            onClick={() => window.open(confirmDialog.image, '_blank')}
                             style={{ cursor: 'zoom-in' }}
                         />
                     </div>
