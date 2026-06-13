@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const helmet = require('helmet'); // [SECURITY] Import Helmet
+const rateLimit = require('express-rate-limit'); // [SECURITY] Import Rate Limit
 const db = require('./models');
 
 // Route Imports
@@ -13,6 +15,27 @@ const transactionRoutes = require('./routes/transactionRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 
 const app = express();
+
+// ==========================================
+// MIDDLEWARE KEAMANAN
+// ==========================================
+// 1. Helmet: Mengamankan HTTP headers dari celah XSS dan menyembunyikan identitas framework
+app.use(helmet());
+
+// 2. Rate Limit: Mencegah serangan Brute Force / DDoS pada aplikasi Split Bill
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // Jendela waktu 15 menit
+  max: 100, // Batasi setiap IP maksimal 100 request per 15 menit
+  message: {
+    success: false,
+    message: 'Terlalu banyak request dari IP ini, silakan coba lagi setelah 15 menit.'
+  },
+  standardHeaders: true, 
+  legacyHeaders: false, 
+});
+// Mengaplikasikan pembatasan ke semua rute
+app.use(apiLimiter);
+// ==========================================
 
 app.use(cors());
 app.use(express.json());
@@ -48,7 +71,7 @@ db.sequelize.sync()
 const PORT = process.env.PORT || 5000;
 
 // Vercel akan mengabaikan ini, tapi localhost akan menyalakannya
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`🚀 Server Lokal Nyala di http://localhost:${PORT}`);
   });

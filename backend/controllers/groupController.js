@@ -6,6 +6,12 @@ exports.createGroup = async (req, res) => {
     const { name, description } = req.body;
     const admin_id = req.user.id; 
 
+    // [TAMBAHAN VALIDASI UNTUK JEST]
+    if (!name || name.trim() === '') {
+      return res.status(400).json({ error: 'Nama grup wajib diisi' });
+    }
+    // ============================
+
     const newGroup = await Group.create({
       name,
       description,
