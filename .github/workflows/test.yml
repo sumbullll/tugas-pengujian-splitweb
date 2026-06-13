@@ -10,13 +10,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # 1. Menyiapkan Database MySQL Virtual di dalam Server GitHub
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-          MYSQL_DATABASE: splitweb_db  # <-- UBAH SESUAI NAMA DATABASE DI LOKALMU
+          MYSQL_DATABASE: defaultdb
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -41,11 +40,9 @@ jobs:
       working-directory: ./backend
       env:
         BYPASS_AUTH: 'true'
-        # 2. Memberikan akses kredensial agar Sequelize bisa masuk ke MySQL Virtual
-        # Sesuaikan NAMA VARIABEL di sebelah kiri dengan yang ada di file .env kamu!
         DB_USERNAME: root
         DB_PASSWORD: ''
-        DB_DATABASE: splitweb_db # <-- UBAH SESUAI NAMA DATABASE DI LOKALMU
+        DB_DATABASE: defaultdb
         DB_HOST: 127.0.0.1
         DB_DIALECT: mysql
       run: npm run test:coverage
