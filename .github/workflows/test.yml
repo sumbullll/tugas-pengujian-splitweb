@@ -46,4 +46,4 @@ jobs:
         DB_HOST: 127.0.0.1
         DB_DIALECT: mysql
         JWT_SECRET: rahasia_testing_123
-      run: npm run test:coverage
+      run: npx jest --coverage --forceExit
